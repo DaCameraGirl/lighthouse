@@ -14,8 +14,10 @@ out/
 .env.*
 !.env.example
 
-# prisma
-apps/api/prisma/migrations/dev.db*
+# prisma — keep migrations/*.sql, ignore the local SQLite db
+*.db
+*.db-journal
+apps/api/prisma/dev.db*
 
 # playwright
 apps/worker/.cache/

@@ -3,6 +3,8 @@ import type { Directory, PressKit, Submission } from "@lighthouse/core";
 import { api } from "../api.js";
 import { PageHead, StatusBadge, CopyButton } from "../components.js";
 
+type Tailored = { tagline: string; description: string };
+
 /**
  * The submission cockpit. For every directory that can't (or shouldn't) be
  * automated, the operator gets the exact copy to paste, field by field, plus a
@@ -105,12 +107,30 @@ function SubmissionCard({
   kit: PressKit;
   onMark: (id: string, status: string) => void;
 }) {
+  const [tailored, setTailored] = useState<Tailored | null>(null);
+  const [tailoring, setTailoring] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+
+  async function tailor() {
+    setTailoring(true);
+    setAiError(null);
+    try {
+      setTailored(await api.tailorCopy({ pressKitId: sub.pressKitId, directoryId: dir.id }));
+    } catch (e) {
+      const msg = String((e as Error).message);
+      setAiError(msg.includes("ai_unconfigured") ? "Add ANTHROPIC_API_KEY to enable AI tailoring." : "Tailoring failed.");
+    } finally {
+      setTailoring(false);
+    }
+  }
+
+  // Prefer AI-tailored copy once generated; otherwise the base press kit.
   const fieldValue = (f: string): string => {
     switch (f) {
       case "name": return kit.productName;
       case "url": return kit.url;
-      case "tagline": return kit.taglines.medium;
-      case "description": return kit.descriptions.medium;
+      case "tagline": return tailored?.tagline ?? kit.taglines.medium;
+      case "description": return tailored?.description ?? kit.descriptions.medium;
       case "category": return kit.category;
       case "founderName": return kit.founderName;
       case "email": return kit.email;
@@ -127,10 +147,22 @@ function SubmissionCard({
           <span className="da">DA {dir.domainAuthority}</span>
           <StatusBadge status={sub.status} />
         </div>
-        <a className="btn primary sm" href={dir.submissionUrl} target="_blank" rel="noreferrer">
-          Open submission page ↗
-        </a>
+        <div className="flex">
+          <button className="btn sm" onClick={tailor} disabled={tailoring}>
+            {tailoring ? "Tailoring…" : tailored ? "Re-tailor with AI" : "Tailor with AI"}
+          </button>
+          <a className="btn primary sm" href={dir.submissionUrl} target="_blank" rel="noreferrer">
+            Open submission page ↗
+          </a>
+        </div>
       </div>
+
+      {aiError && <div className="row-sub" style={{ color: "var(--warn)", marginBottom: "var(--s3)" }}>{aiError}</div>}
+      {tailored && (
+        <div className="badge accent" style={{ marginBottom: "var(--s3)" }}>
+          <span className="dot" /> AI-tailored for {dir.name}
+        </div>
+      )}
 
       <div className="rows">
         {dir.fields

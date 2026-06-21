@@ -1,12 +1,18 @@
 // Lighthouse data model — multi-tenant from row one.
 // Every tenant-owned row carries orgId; queries are always org-scoped.
+//
+// Provider is SQLite for zero-install local dev. The schema deliberately uses
+// only cross-compatible features (string status fields rather than native
+// enums), so switching `provider` to "postgresql" for production is a one-line
+// change — no model rewrite. Status/role strings are validated in application
+// code against the unions in @lighthouse/core.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -21,23 +27,17 @@ model Org {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  orgId     String
-  email     String   @unique
-  name      String
-  role      Role     @default(MEMBER)
+  id           String   @id @default(cuid())
+  orgId        String
+  email        String   @unique
+  name         String
+  role         String   @default("MEMBER") // OWNER | ADMIN | MEMBER
   passwordHash String
-  createdAt DateTime @default(now())
+  createdAt    DateTime @default(now())
 
   org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
 
   @@index([orgId])
-}
-
-enum Role {
-  OWNER
-  ADMIN
-  MEMBER
 }
 
 model PressKit {
@@ -72,17 +72,17 @@ model PressKit {
 }
 
 model Submission {
-  id          String           @id @default(cuid())
+  id          String   @id @default(cuid())
   orgId       String
   pressKitId  String
   directoryId String // references the curated catalog slug, not a DB row
-  status      SubmissionStatus @default(QUEUED)
+  status      String   @default("QUEUED") // see SubmissionStatus in @lighthouse/core
   proofUrl    String?
   listingUrl  String?
-  attempts    Int              @default(0)
+  attempts    Int      @default(0)
   lastError   String?
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   org      Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
   pressKit PressKit @relation(fields: [pressKitId], references: [id], onDelete: Cascade)
@@ -90,14 +90,4 @@ model Submission {
   @@unique([pressKitId, directoryId])
   @@index([orgId])
   @@index([status])
-}
-
-enum SubmissionStatus {
-  QUEUED
-  IN_PROGRESS
-  SUBMITTED
-  LIVE
-  REJECTED
-  NEEDS_ACTION
-  FAILED
 }
