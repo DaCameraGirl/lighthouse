@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# builds
+dist/
+build/
+.next/
+out/
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# prisma
+apps/api/prisma/migrations/dev.db*
+
+# playwright
+apps/worker/.cache/
+test-results/
+playwright-report/
+**/screenshots/*.png
+
+# logs
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
