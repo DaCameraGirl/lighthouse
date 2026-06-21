@@ -1,23 +1,42 @@
-import type { FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
+
+/** Shape of our signed JWT payload. */
+export interface AuthPayload {
+  userId: string;
+  orgId: string;
+  role: string;
+}
+
+declare module "@fastify/jwt" {
+  interface FastifyJWT {
+    payload: AuthPayload;
+    user: AuthPayload;
+  }
+}
 
 /**
- * Org resolution for multi-tenancy.
- *
- * In production the orgId comes from a verified JWT (see server.ts `@fastify/jwt`).
- * For local dev without auth wired up, we fall back to an `x-org-id` header so the
- * cockpit can be exercised end-to-end before login lands. The fallback is gated on
- * NODE_ENV so it can never be relied on in production.
+ * preHandler that rejects unauthenticated requests. Registered as the
+ * `authenticate` decorator in server.ts and attached to protected routes.
+ */
+export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
+  try {
+    await req.jwtVerify();
+  } catch {
+    return reply.code(401).send({ error: "unauthorized" });
+  }
+}
+
+/**
+ * Resolve the caller's org from the verified JWT. Protected routes run behind
+ * `authenticate`, so `req.user` is always populated here; the throw is a
+ * defensive guard, not an expected path.
  */
 export function requireOrg(req: FastifyRequest): string {
-  const user = (req as FastifyRequest & { user?: { orgId?: string } }).user;
-  if (user?.orgId) return user.orgId;
-
-  if (process.env.NODE_ENV !== "production") {
-    const header = req.headers["x-org-id"];
-    if (typeof header === "string" && header) return header;
+  const orgId = req.user?.orgId;
+  if (!orgId) {
+    const err = new Error("unauthorized") as Error & { statusCode?: number };
+    err.statusCode = 401;
+    throw err;
   }
-
-  const err = new Error("unauthorized") as Error & { statusCode?: number };
-  err.statusCode = 401;
-  throw err;
+  return orgId;
 }

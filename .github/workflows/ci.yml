@@ -33,5 +33,8 @@ jobs:
           npm run lint -w @lighthouse/api
           npm run lint -w @lighthouse/worker
 
+      - name: Run tests
+        run: npm test
+
       - name: Build web cockpit
         run: npm run build -w @lighthouse/web

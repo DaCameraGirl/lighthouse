@@ -3,6 +3,7 @@ import { chromium, type Browser } from "playwright";
 import { PrismaClient } from "@prisma/client";
 import { getDirectory } from "@lighthouse/directories";
 import { buildFieldPlan, type PressKitData } from "./mappers.js";
+import { selectorsFor } from "./selectorMaps.js";
 
 /**
  * The automation fleet.
@@ -62,15 +63,10 @@ const worker = new Worker<SubmissionJobData>(
     try {
       await page.goto(dir.submissionUrl, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
-      // Best-effort field fill by common name/id/placeholder heuristics. Real
-      // per-directory selector maps would be layered on top of this fallback.
+      // Fill each field using its per-directory selector map, falling back to
+      // generic name/id/placeholder heuristics (see selectorMaps.ts).
       for (const { field, value } of plan) {
-        const selectors = [
-          `input[name*="${field}" i]`,
-          `textarea[name*="${field}" i]`,
-          `input[id*="${field}" i]`,
-          `input[placeholder*="${field}" i]`,
-        ];
+        const selectors = selectorsFor(directoryId, field);
         for (const sel of selectors) {
           const el = page.locator(sel).first();
           if (await el.count().then((c) => c > 0).catch(() => false)) {
