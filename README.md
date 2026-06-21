@@ -63,20 +63,50 @@ A monorepo of independently scalable tiers:
 
 ## Getting started
 
+Lighthouse uses **PostgreSQL** in every environment (dev/prod parity). No local
+database install is required — point `DATABASE_URL` at a hosted Postgres (e.g.
+your Render database's *External* connection string).
+
 ```bash
 npm install
-cp .env.example .env        # fill ANTHROPIC_API_KEY for AI copy tailoring
-npm run db:up               # Postgres + Redis via docker compose
-npm run db:migrate          # apply Prisma schema
-npm run dev                 # all tiers in watch mode
+cp .env.example .env         # set DATABASE_URL to your Postgres; fill ANTHROPIC_API_KEY for AI copy
+npm run db:migrate:deploy -w @lighthouse/api   # apply the schema
+npm run db:seed -w @lighthouse/api             # demo workspace: demo@lighthouse.app / demo12345
+npm run dev                  # all tiers in watch mode
 ```
 
 Web cockpit: http://localhost:5173 · API: http://localhost:4000
 
+> Windows desktop shortcut: `GameIcons\Launch-Lighthouse.ps1` starts the API +
+> cockpit and opens the browser. It checks that `.env` has a real `DATABASE_URL`
+> first.
+
+## Deploy (Render)
+
+The repo ships a [`render.yaml`](./render.yaml) Blueprint: one web service (the
+Fastify API serving the built cockpit at the same origin) plus a managed
+Postgres database.
+
+1. In Render, **New → Blueprint** and pick this repo. It reads `render.yaml`.
+2. Set `ANTHROPIC_API_KEY` in the dashboard (optional — AI copy tailoring).
+   `DATABASE_URL` and `JWT_SECRET` are wired automatically.
+3. Deploy. The build applies migrations and seeds the demo workspace, so the
+   live site has a working `demo@lighthouse.app / demo12345` login immediately.
+
+The cockpit talks to the API with relative `/api` paths, so in production both
+are served from one origin — no CORS or API-URL configuration needed. Render's
+free Postgres is removed ~30 days after creation; move the database and service
+to a paid plan for an always-on deployment.
+
 ## Status
 
-Foundation in progress. Built incrementally, PR by PR — see the tracking issue.
+Foundation shipped. Built incrementally, PR by PR — see the tracking issue.
 
 ## License
 
-Proprietary — UNLICENSED. © Angela Hudson (DaCameraGirl).
+Licensed under the **Apache License 2.0** — see [LICENSE](./LICENSE) and
+[NOTICE](./NOTICE). You're free to use, modify, and build on Lighthouse,
+including commercially. In return, keep the `NOTICE` file and its attribution
+to **Angela Hudson (DaCameraGirl)** with any copies or derivative works.
+
+© 2026 Angela Hudson (DaCameraGirl).

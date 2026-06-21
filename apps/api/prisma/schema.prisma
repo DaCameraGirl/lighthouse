@@ -1,18 +1,18 @@
 // Lighthouse data model — multi-tenant from row one.
 // Every tenant-owned row carries orgId; queries are always org-scoped.
 //
-// Provider is SQLite for zero-install local dev. The schema deliberately uses
-// only cross-compatible features (string status fields rather than native
-// enums), so switching `provider` to "postgresql" for production is a one-line
-// change — no model rewrite. Status/role strings are validated in application
-// code against the unions in @lighthouse/core.
+// Provider is PostgreSQL for both local dev and production (dev/prod parity).
+// DATABASE_URL points at a hosted Postgres in both environments. The schema
+// uses only cross-compatible features (string status fields rather than native
+// enums); status/role strings are validated in application code against the
+// unions in @lighthouse/core.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
