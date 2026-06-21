@@ -1,0 +1,103 @@
+// Lighthouse data model — multi-tenant from row one.
+// Every tenant-owned row carries orgId; queries are always org-scoped.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Org {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users       User[]
+  pressKits   PressKit[]
+  submissions Submission[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  orgId     String
+  email     String   @unique
+  name      String
+  role      Role     @default(MEMBER)
+  passwordHash String
+  createdAt DateTime @default(now())
+
+  org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([orgId])
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+model PressKit {
+  id          String   @id @default(cuid())
+  orgId       String
+  productName String
+  url         String
+  category    String
+  founderName String
+  email       String
+  twitter     String?
+
+  taglineShort  String
+  taglineMedium String
+  taglineLong   String
+
+  descShort  String
+  descMedium String
+  descLong   String
+
+  logoSquare String?
+  logoWide   String?
+  logoIcon   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  org         Org          @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+
+  @@index([orgId])
+}
+
+model Submission {
+  id          String           @id @default(cuid())
+  orgId       String
+  pressKitId  String
+  directoryId String // references the curated catalog slug, not a DB row
+  status      SubmissionStatus @default(QUEUED)
+  proofUrl    String?
+  listingUrl  String?
+  attempts    Int              @default(0)
+  lastError   String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  org      Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  pressKit PressKit @relation(fields: [pressKitId], references: [id], onDelete: Cascade)
+
+  @@unique([pressKitId, directoryId])
+  @@index([orgId])
+  @@index([status])
+}
+
+enum SubmissionStatus {
+  QUEUED
+  IN_PROGRESS
+  SUBMITTED
+  LIVE
+  REJECTED
+  NEEDS_ACTION
+  FAILED
+}
