@@ -76,7 +76,7 @@ model Submission {
   orgId       String
   pressKitId  String
   directoryId String // references the curated catalog slug, not a DB row
-  status      String   @default("QUEUED") // see SubmissionStatus in @lighthouse/core
+  status      String   @default("queued") // see SubmissionStatus in @lighthouse/core
   proofUrl    String?
   listingUrl  String?
   attempts    Int      @default(0)

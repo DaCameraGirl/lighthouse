@@ -19,7 +19,7 @@ export async function analyticsRoutes(app: FastifyInstance) {
       return acc;
     }, {});
 
-    const live = submissions.filter((s) => s.status === "LIVE");
+    const live = submissions.filter((s) => s.status === "live");
     const backlinkAuthority = live.reduce((sum, s) => {
       const dir = getDirectory(s.directoryId);
       return sum + (dir?.domainAuthority ?? 0);
