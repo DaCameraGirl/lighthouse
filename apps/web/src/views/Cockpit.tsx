@@ -179,9 +179,9 @@ function SubmissionCard({
       </div>
 
       <div className="flex" style={{ marginTop: "var(--s4)", justifyContent: "flex-end" }}>
-        <button className="btn sm" onClick={() => onMark(sub.id, "REJECTED")}>Rejected</button>
-        <button className="btn sm" onClick={() => onMark(sub.id, "SUBMITTED")}>Mark submitted</button>
-        <button className="btn primary sm" onClick={() => onMark(sub.id, "LIVE")}>Mark live</button>
+        <button className="btn sm" onClick={() => onMark(sub.id, "rejected")}>Rejected</button>
+        <button className="btn sm" onClick={() => onMark(sub.id, "submitted")}>Mark submitted</button>
+        <button className="btn primary sm" onClick={() => onMark(sub.id, "live")}>Mark live</button>
       </div>
     </div>
   );

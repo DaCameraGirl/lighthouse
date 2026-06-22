@@ -49,11 +49,11 @@ export async function submissionRoutes(app: FastifyInstance) {
           orgId,
           pressKitId,
           directoryId: dir.id,
-          status: dir.automationClass === "auto" ? "QUEUED" : "NEEDS_ACTION",
+          status: dir.automationClass === "auto" ? "queued" : "needs_action",
         },
       });
 
-      if (dir.automationClass === "auto" && submission.status === "QUEUED") {
+      if (dir.automationClass === "auto" && submission.status === "queued") {
         await enqueueSubmission({ submissionId: submission.id, orgId, directoryId: dir.id, pressKitId });
       }
       results.push({ directoryId: dir.id, status: submission.status, route: dir.automationClass });
@@ -63,7 +63,7 @@ export async function submissionRoutes(app: FastifyInstance) {
   });
 
   const statusUpdate = z.object({
-    status: z.enum(["SUBMITTED", "LIVE", "REJECTED", "NEEDS_ACTION", "FAILED"]),
+    status: z.enum(["submitted", "live", "rejected", "needs_action", "failed"]),
     listingUrl: z.string().url().optional(),
   });
 

@@ -53,7 +53,7 @@ const worker = new Worker<SubmissionJobData>(
 
     await prisma.submission.update({
       where: { id: submissionId },
-      data: { status: "IN_PROGRESS", attempts: { increment: 1 } },
+      data: { status: "in_progress", attempts: { increment: 1 } },
     });
 
     const plan = buildFieldPlan(dir, kit);
@@ -87,7 +87,7 @@ const worker = new Worker<SubmissionJobData>(
       await prisma.submission.update({
         where: { id: submissionId },
         data: {
-          status: DRY_RUN ? "NEEDS_ACTION" : "SUBMITTED",
+          status: DRY_RUN ? "needs_action" : "submitted",
           proofUrl: screenshotPath,
           lastError: DRY_RUN ? "dry-run: form filled, not submitted" : null,
         },
@@ -104,7 +104,7 @@ const worker = new Worker<SubmissionJobData>(
 worker.on("failed", async (job, err) => {
   if (!job) return;
   await prisma.submission
-    .update({ where: { id: job.data.submissionId }, data: { status: "FAILED", lastError: err.message } })
+    .update({ where: { id: job.data.submissionId }, data: { status: "failed", lastError: err.message } })
     .catch(() => {});
 });
 
