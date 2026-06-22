@@ -2,6 +2,8 @@
 
 **Enterprise startup directory submission & distribution platform.**
 
+**Live:** [lighthouse-8b66.onrender.com](https://lighthouse-8b66.onrender.com) — demo login `demo@lighthouse.app` / `demo12345`. (Free tier: the first request after idle can take ~50s to wake.)
+
 Lighthouse gets a startup listed across the directories, launch boards, and review
 sites that actually drive discovery — then tracks the backlinks, referring domains,
 and traffic that result. It is the in-house, multi-tenant alternative to outsourced
