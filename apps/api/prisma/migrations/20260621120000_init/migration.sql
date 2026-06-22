@@ -1,25 +1,28 @@
 -- CreateTable
 CREATE TABLE "Org" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Org_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "orgId" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'MEMBER',
     "passwordHash" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT "User_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Org" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "PressKit" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "orgId" TEXT NOT NULL,
     "productName" TEXT NOT NULL,
     "url" TEXT NOT NULL,
@@ -36,14 +39,15 @@ CREATE TABLE "PressKit" (
     "logoSquare" TEXT,
     "logoWide" TEXT,
     "logoIcon" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "PressKit_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Org" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "PressKit_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Submission" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "orgId" TEXT NOT NULL,
     "pressKitId" TEXT NOT NULL,
     "directoryId" TEXT NOT NULL,
@@ -52,10 +56,10 @@ CREATE TABLE "Submission" (
     "listingUrl" TEXT,
     "attempts" INTEGER NOT NULL DEFAULT 0,
     "lastError" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "Submission_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Org" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT "Submission_pressKitId_fkey" FOREIGN KEY ("pressKitId") REFERENCES "PressKit" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Submission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -75,3 +79,16 @@ CREATE INDEX "Submission_status_idx" ON "Submission"("status");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Submission_pressKitId_directoryId_key" ON "Submission"("pressKitId", "directoryId");
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Org"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PressKit" ADD CONSTRAINT "PressKit_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Org"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Submission" ADD CONSTRAINT "Submission_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Org"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Submission" ADD CONSTRAINT "Submission_pressKitId_fkey" FOREIGN KEY ("pressKitId") REFERENCES "PressKit"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+

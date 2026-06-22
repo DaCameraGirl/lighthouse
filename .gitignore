@@ -8,16 +8,20 @@ dist/
 build/
 .next/
 out/
+*.tsbuildinfo
 
 # env / secrets
 .env
 .env.*
 !.env.example
 
-# prisma — keep migrations/*.sql, ignore the local SQLite db
+# prisma — keep migrations/*.sql, ignore any local db artifacts
 *.db
 *.db-journal
 apps/api/prisma/dev.db*
+
+# local launcher sentinel
+.lighthouse-seeded
 
 # playwright
 apps/worker/.cache/
