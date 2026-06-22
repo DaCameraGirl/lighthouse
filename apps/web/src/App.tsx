@@ -71,6 +71,12 @@ export function App() {
           <button className="btn ghost sm" style={{ marginTop: "var(--s2)", padding: 0 }} onClick={signOut}>
             Sign out
           </button>
+          <div className="credit">
+            Built by{" "}
+            <a href="https://github.com/DaCameraGirl" target="_blank" rel="noopener noreferrer">
+              Angela Hudson
+            </a>
+          </div>
         </div>
       </aside>
 

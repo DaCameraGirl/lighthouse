@@ -20,6 +20,8 @@ services:
     plan: free
     region: oregon
     branch: main
+    # Redeploy automatically on every push to main (default, made explicit).
+    autoDeploy: true
     # --include=dev keeps vite/prisma/tsx available for the build + runtime.
     # The API runs under tsx (it imports source-only workspace packages), so
     # we build the cockpit + generate the client here; no API tsc step needed.

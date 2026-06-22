@@ -84,6 +84,9 @@ body {
 .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .55; }
 
 .sidebar-foot { margin-top: auto; font-size: 12px; color: var(--ink-3); padding: 0 var(--s2); }
+.credit { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--border); font-size: 11px; color: var(--ink-3); }
+.credit a { color: var(--ink-2); font-weight: 600; text-decoration: none; }
+.credit a:hover { color: var(--accent); text-decoration: underline; }
 
 /* ── Main ──────────────────────────────────────────── */
 .main { padding: var(--s6) var(--s7); max-width: 1180px; }
