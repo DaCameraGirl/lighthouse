@@ -129,8 +129,8 @@ function SubmissionCard({
     switch (f) {
       case "name": return kit.productName;
       case "url": return kit.url;
-      case "tagline": return tailored?.tagline ?? kit.taglines.medium;
-      case "description": return tailored?.description ?? kit.descriptions.medium;
+      case "tagline": return tailored?.tagline ?? kit.taglines?.medium ?? "";
+      case "description": return tailored?.description ?? kit.descriptions?.medium ?? "";
       case "category": return kit.category;
       case "founderName": return kit.founderName;
       case "email": return kit.email;
