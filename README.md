@@ -50,7 +50,7 @@ and the analytics.
 ---
 
 <p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Why%20this%20exists&fontSize=22&fontColor=e6edf3" width="720" alt="Why this exists" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:070b14,100:12102a&height=50&section=header&text=Why%20this%20exists&fontSize=22&fontColor=e6edf3&animation=twinkling" width="720" alt="Why this exists" /></p>
 
 
 Outsourced submission services are a maintained directory list plus human labor,
@@ -67,7 +67,7 @@ sold behind unverifiable traffic claims. Lighthouse turns that into software:
   and how referring domains trend over time.
 
 <p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Architecture&fontSize=22&fontColor=e6edf3" width="720" alt="Architecture" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:070b14,100:12102a&height=50&section=header&text=Architecture&fontSize=22&fontColor=e6edf3&animation=twinkling" width="720" alt="Architecture" /></p>
 
 
 A monorepo of independently scalable tiers:
@@ -95,7 +95,7 @@ A monorepo of independently scalable tiers:
 ```
 
 <p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Submission%20tiers%20(automation%20class)&fontSize=22&fontColor=e6edf3" width="720" alt="Submission tiers (automation class)" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:070b14,100:12102a&height=50&section=header&text=Submission%20tiers%20(automation%20class)&fontSize=22&fontColor=e6edf3&animation=twinkling" width="720" alt="Submission tiers (automation class)" /></p>
 
 
 | Class | Meaning | Handled by |
@@ -105,7 +105,7 @@ A monorepo of independently scalable tiers:
 | `manual` | Captcha / review / paid gate | Cockpit (operator submits, tracks status) |
 
 <p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Getting%20started&fontSize=22&fontColor=e6edf3" width="720" alt="Getting started" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:070b14,100:12102a&height=50&section=header&text=Getting%20started&fontSize=22&fontColor=e6edf3&animation=twinkling" width="720" alt="Getting started" /></p>
 
 
 Lighthouse uses **PostgreSQL** in every environment (dev/prod parity). No local
@@ -127,7 +127,7 @@ Web cockpit: http://localhost:5173 · API: http://localhost:4000
 > first.
 
 <p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Deploy%20(Render)&fontSize=22&fontColor=e6edf3" width="720" alt="Deploy (Render)" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:070b14,100:12102a&height=50&section=header&text=Deploy%20(Render)&fontSize=22&fontColor=e6edf3&animation=twinkling" width="720" alt="Deploy (Render)" /></p>
 
 
 The repo ships a [`render.yaml`](./render.yaml) Blueprint: one web service (the
@@ -146,13 +146,13 @@ free Postgres is removed ~30 days after creation; move the database and service
 to a paid plan for an always-on deployment.
 
 <p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Status&fontSize=22&fontColor=e6edf3" width="720" alt="Status" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:070b14,100:12102a&height=50&section=header&text=Status&fontSize=22&fontColor=e6edf3&animation=twinkling" width="720" alt="Status" /></p>
 
 
 Foundation shipped. Built incrementally, PR by PR — see the tracking issue.
 
 <p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=License&fontSize=22&fontColor=e6edf3" width="720" alt="License" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:070b14,100:12102a&height=50&section=header&text=License&fontSize=22&fontColor=e6edf3&animation=twinkling" width="720" alt="License" /></p>
 
 
 Licensed under the **Apache License 2.0** — see [LICENSE](./LICENSE) and
