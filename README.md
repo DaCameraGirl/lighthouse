@@ -1,3 +1,38 @@
+<p align="center">
+  <img src="docs/readme-banner.svg" alt="Lighthouse — Enterprise startup directory submission and distribution platform." width="720" />
+</p>
+
+<p align="center">
+  <strong>Enterprise startup directory submission and distribution platform.</strong>
+</p>
+
+<p align="center">
+  <a href="https://lighthouse-8b66.onrender.com"><img src="https://img.shields.io/badge/Live-app-0b63ce?style=for-the-badge&logo=vercel&logoColor=white" alt="Live app" /></a>
+  <a href="https://github.com/DaCameraGirl/lighthouse"><img src="https://img.shields.io/badge/Code-GitHub-58a6ff?style=for-the-badge&logo=github&logoColor=white" alt="Source code" /></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/deploy-Render-000000?style=flat-square" alt="deploy-Render" />
+  <img src="https://img.shields.io/badge/stack-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="stack-TypeScript" />
+</p>
+
+### Languages
+
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-89%25-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/CSS-10%25-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS" />
+</p>
+
+### Stack
+
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-app-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript-app" />
+  <img src="https://img.shields.io/badge/Render-hosted-000000?style=flat-square" alt="Render-hosted" />
+</p>
+
+<p align="center">
+  Built by <strong>Angela Hudson</strong> · <a href="https://github.com/DaCameraGirl">DaCameraGirl</a>
+</p>
 # Lighthouse
 
 **Enterprise startup directory submission & distribution platform.**
@@ -14,7 +49,9 @@ and the analytics.
 
 ---
 
-## Why this exists
+<p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Why%20this%20exists&fontSize=22&fontColor=e6edf3" width="720" alt="Why this exists" /></p>
+
 
 Outsourced submission services are a maintained directory list plus human labor,
 sold behind unverifiable traffic claims. Lighthouse turns that into software:
@@ -29,7 +66,9 @@ sold behind unverifiable traffic claims. Lighthouse turns that into software:
 - **Analytics** that close the loop: which listings went live, what backlinks landed,
   and how referring domains trend over time.
 
-## Architecture
+<p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Architecture&fontSize=22&fontColor=e6edf3" width="720" alt="Architecture" /></p>
+
 
 A monorepo of independently scalable tiers:
 
@@ -55,7 +94,9 @@ A monorepo of independently scalable tiers:
                                             └───────────────┘
 ```
 
-## Submission tiers (automation class)
+<p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Submission%20tiers%20(automation%20class)&fontSize=22&fontColor=e6edf3" width="720" alt="Submission tiers (automation class)" /></p>
+
 
 | Class | Meaning | Handled by |
 |-------|---------|------------|
@@ -63,7 +104,9 @@ A monorepo of independently scalable tiers:
 | `assisted` | Login or light friction | Cockpit (pre-filled, one human click) |
 | `manual` | Captcha / review / paid gate | Cockpit (operator submits, tracks status) |
 
-## Getting started
+<p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Getting%20started&fontSize=22&fontColor=e6edf3" width="720" alt="Getting started" /></p>
+
 
 Lighthouse uses **PostgreSQL** in every environment (dev/prod parity). No local
 database install is required — point `DATABASE_URL` at a hosted Postgres (e.g.
@@ -83,7 +126,9 @@ Web cockpit: http://localhost:5173 · API: http://localhost:4000
 > cockpit and opens the browser. It checks that `.env` has a real `DATABASE_URL`
 > first.
 
-## Deploy (Render)
+<p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Deploy%20(Render)&fontSize=22&fontColor=e6edf3" width="720" alt="Deploy (Render)" /></p>
+
 
 The repo ships a [`render.yaml`](./render.yaml) Blueprint: one web service (the
 Fastify API serving the built cockpit at the same origin) plus a managed
@@ -100,11 +145,15 @@ are served from one origin — no CORS or API-URL configuration needed. Render's
 free Postgres is removed ~30 days after creation; move the database and service
 to a paid plan for an always-on deployment.
 
-## Status
+<p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=Status&fontSize=22&fontColor=e6edf3" width="720" alt="Status" /></p>
+
 
 Foundation shipped. Built incrementally, PR by PR — see the tracking issue.
 
-## License
+<p align="center"><img src="docs/readme-divider.svg" width="720" alt="" /></p>
+<p align="center"><img src="https://capsule-render.vercel.app/api?type=rect&color=070b14&height=50&section=header&text=License&fontSize=22&fontColor=e6edf3" width="720" alt="License" /></p>
+
 
 Licensed under the **Apache License 2.0** — see [LICENSE](./LICENSE) and
 [NOTICE](./NOTICE). You're free to use, modify, and build on Lighthouse,
